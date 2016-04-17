@@ -38,7 +38,93 @@ struct oddevennode{
 
 };
 
-int * oddeven_sll(struct oddevennode *head){
-
-	return NULL;
+int * oddeven_sll(struct oddevennode *head)
+{
+	struct oddevennode *temp1=NULL,*temp2=NULL;
+	static int a[2];
+	int  o = 0, e = 0;
+	if (head == NULL)
+	{
+		return NULL;
+	}
+	if (head->next == NULL)
+	{
+		if (head->data % 2 == 0)
+		{
+			a[0] = 0;
+			a[1] = 1;
+			return a;
+		}
+		else
+		{
+			a[0] = 1;
+			a[1] = 0;
+			return a;
+		}
+	}
+	else
+	{
+		temp1 = head;
+		while (temp1->next!=NULL)
+		{
+			if (temp1->data % 2 == 0)
+			{
+				e++;
+				temp2 = temp1->next;
+				while (temp2->data % 2 != 0 && temp2->next != NULL)
+				{
+					temp2 = temp2->next;
+				}
+				if (temp2->next == NULL&&temp2->data % 2 != 0)
+				{
+					temp1->random = NULL;
+				}
+				else
+				if (temp2->next == NULL&&temp2->data % 2 == 0)
+				{
+					temp1->random = temp2;
+				}
+				else
+				{
+					temp1->random = temp2;
+				}
+				temp1 = temp1->next;
+			}
+			else
+			{
+				o++;
+				temp2 = temp1->next;
+				while (temp2->data % 2 == 0 && temp2->next != NULL)
+				{
+					temp2 = temp2->next;
+				}
+				if (temp2->next == NULL&&temp2->data % 2 != 0)
+				{
+					temp1->random = temp2;
+				}
+				else
+				if (temp2->next == NULL&&temp2->data % 2 == 0)
+				{
+					temp1->random = NULL;
+				}
+				else
+				{
+					temp1->random = temp2;
+				}
+				temp1 = temp1->next;
+			}
+		}
+		if (temp1->data % 2 == 0)
+		{
+			e++;
+		}
+		else
+		{
+			o++;
+		}
+		temp1->random = NULL;
+		a[0] = o;
+		a[1] = e;
+	}
+	return a;
 }
